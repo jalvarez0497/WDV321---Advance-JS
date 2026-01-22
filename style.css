@@ -1,0 +1,61 @@
+body {
+    background-color: rgba(242, 226, 27);
+    color: rgba(37, 50, 56);
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    text-align: center;
+    border : 3px solid rgb(37, 50, 56);
+    border-radius: 5px;
+    
+}
+
+main {
+    padding: 5px;
+    margin: 20px;
+
+}
+ h2,
+ h3,
+ p {
+    margin: 15px;
+    padding: 2px;
+ }
+
+ h2, 
+ main p {
+    text-align: center;
+ }
+
+ header, 
+ main,
+ footer {
+    background-color: rgba(248, 238, 149);
+ }
+
+ ul {
+    list-style-type: square;
+ }
+
+ a:link {
+    text-decoration: none;
+ }
+
+ a:active {
+    color: blue;
+ }
+
+ a:visited {
+    color: purple;
+ }
+
+ a:hover {
+    color: rgb(247, 0, 255);
+ }
+
+ .flex-content {
+    display: flex;
+    flex-direction: column;;
+ }
