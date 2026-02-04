@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>WDV321 Advanced Javascript</title>
+    <script src="/unit2/demonstrateCssDisplay.js"></script>
+	<style>
+		.displayContainer {
+			border:thin solid black;
+			width:50%;
+			margin-left:20px;
+			padding:10px;
+		}
+
+        .container {
+            display: none;
+        }
+	</style>
+</head>
+
+<body>
+	<h1>WDV321 Advanced Javascript</h1>
+	<h2>Dynamic Structure -  Display Property Exercise</h2>
+  <p>Use this page as the basis for your assignment. You are welcome to change the content, layout and style of this page as desired. </p>
+
+  <p>Create the following content areas on the page using HTML.</p>
+	<ol>
+	  <li>Create a div that contains a new drop down list with at least four common Complaints to a company. </li>
+	  <li>Create a div that contains four Technical Problems displayed as a  set of checkboxes. </li>
+	  <li>Create a div that contains four Product Issues displayed as a set of radio buttons.</li>
+	  <li>Use the display property to remove these content containers from the page.</li>
+  </ol>
+	<p>
+		Based on the selection from the &quot;Reason For Contact&quot; drop down, dynamically
+		display the requested content in the Display Container section. For this exercise use
+		the CSS display property to show/remove the requested content areas.
+	</p>
+	<h4>Customer Service Complaints:</h4>
+	<p>
+		<label>Reason For Contact:
+		  <select name="contactType" id="contactType">
+			<option value="">Select Reason</option>
+			<option value="C">Complaints</option>
+			<option value="T">Technical Problems</option>
+			<option value="P">Product Issues</option>
+		  </select>
+		</label>
+  </p>
+	<section class="displayContainer">
+		
+        <div id="commonComplains" class="container">
+            <select name="complains" id="complains">
+                <option value="L">Long Wait Time</option>
+                <option value="D">Delivery Issue</option>
+                <option value="B">Billing Issue</option>
+                <option value="CS">Poor Customer Service</option>
+            </select>
+        </div>
+
+        <div id="technicalProblems" class="container">
+            <input type="checkbox" id="techIssue1" name="techIssue1" value="Can't Login">
+            <label for="techIssue1">Can't login to my account</label><br>
+            <input type="checkbox" id="techIssue2" name="techIssue2" value="Error Message">
+            <label for="techIssue2">Error Message</label><br>
+            <input type="checkbox" id="techIssue3" name="techIssue3" value="Content not loading">
+            <label for="techIssue3">Content not loading</label><br>
+            <input type="checkbox" id="techIssue4" name="techIssue4" value="Forgot Password">
+            <label for="techIssue4">Forgot Password</label>
+        </div>
+
+        <div id="productIssues" class="container">
+            <input type="radio" id="broken" name="itemIssue" value="Broken">
+            <label for="broken">Broken Item</label><br>
+            <input type="radio" id="missingPart" name="itemIssue" value="Missing">
+            <label for="missingPart">Missing Parts</label><br>
+            <input type="radio" id="delivery" name="itemIssue" value="Delivery">
+            <label for="delivery">Item din't arrive</label><br>
+            <input type="radio" id="wrongItem" name="itemIssue" value="Incorrect">
+            <label for="wrongItem">Receive the wrong item</label>
+        </div>
+	</section>
+	<p> </p>
+	<p>&nbsp;</p>
+</body>
+</html>
