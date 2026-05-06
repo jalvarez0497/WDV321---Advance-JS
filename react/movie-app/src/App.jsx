@@ -23,10 +23,18 @@ function App() {
   
   const [newMovie, setNewMovie] = useState("");
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   const addMovie = () => {
-    setMovies([...movies, {id: randomNumber(), name: newMovie}]);
+    if (newMovie.trim() === "") {
+      setErrorMessage("Please enter a movie name.");
+      return;
+    }
+
+    setMovies([...movies, { id: randomNumber(), name: newMovie }]);
     setNewMovie("");
-  }
+    setErrorMessage("");
+  };
 
 
   return (
@@ -37,6 +45,7 @@ function App() {
       <input type="text" id="name" value={newMovie} onChange={(event) => setNewMovie(event.currentTarget.value)}/>
 
       <button className="add-button" onClick={addMovie}>Add Movie</button>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
 
 
       {movies.map((movie) => (
