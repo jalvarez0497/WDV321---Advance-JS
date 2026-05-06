@@ -1,24 +1,182 @@
-body {
-    font-family: Arial;
-    text-align: center;
-    background-color: #e6d4a9;
+* {
+    box-sizing: border-box;
 }
 
-#recipeContainer {
-    width: 60%;
-    margin: 20px auto;
-    background: white;
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #e5ddce;
+    /* background-image: url("images/garita.jpg");
+    background-position: no-repeat;
+    background-size: cover;
+    box-shadow: inset 0 0 0 1000px rgba(255, 255, 255, 0.265); */
+    color: #2f2f2f;
+}
+
+header {
+    background-color: #7a2e2e;
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.4rem;
+}
+
+header p {
+    margin-top: 8px;
+}
+
+select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #c7bfb4;
+    font-size: 1rem;
+}
+
+.app-layout {
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 25px;
+}
+
+.recipe-sidebar,
+.recipe-display,
+.recipe-form-section {
+    background-color: white;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.recipe-sidebar {
+    grid-row: span 2;
+}
+
+.recipe-form-section {
+    grid-column: 2;
 }
 
 h2 {
+    margin-top: 0;
+    color: #7a2e2e;
+}
+
+h3 {
+    color: #4a4a4a;
+    margin-bottom: 8px;
+}
+
+#recipeList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+button {
+    border: none;
+    border-radius: 8px;
+    background-color: #7a2e2e;
+    color: white;
+    padding: 10px 14px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+button:hover {
+    background-color: #a13b3b;
+}
+
+#recipeList button {
+    width: 100%;
+    margin: 0;
+    text-align: left;
+}
+
+#recipeContainer {
+    line-height: 1.6;
+}
+
+#recipeContainer ul,
+#recipeContainer ol {
+    background-color: #f8f4ee;
+    padding: 15px 15px 15px 35px;
+    border-radius: 8px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #c7bfb4;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+#ingredientInputs {
+    display: grid;
+    grid-template-columns: 100px 120px 1fr;
+    gap: 8px;
+}
+
+#instructionInputs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#errorMessage {
     color: darkred;
+    font-weight: bold;
 }
 
-ul,
-ol {
-    list-style-type: none;
+footer {
     text-align: center;
+    padding: 20px;
+    background-color: #7a2e2e;
+    color: white;
+    margin-top: 30px;
 }
 
+.recipe-image {
+    display: block;
+    width: 100%;
+    max-width: 450px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin: 15px 0;
+}
+
+/* Responsive layout for tablets and phones */
+@media (max-width: 800px) {
+    .app-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .recipe-sidebar {
+        grid-row: auto;
+    }
+
+    .recipe-form-section {
+        grid-column: auto;
+    }
+
+    #ingredientInputs {
+        grid-template-columns: 1fr;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+}

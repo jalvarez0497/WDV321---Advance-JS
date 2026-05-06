@@ -7,12 +7,72 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-    <h1> Recipe App</h1>
 
-    <button onclick="loadRecipe()">Load Recipe</button>
+    <header>
+        <h1>Dynamic Recipe Project</h1>
+    </header>
 
-    <div id="recipeContainer"></div>
+    <main class="app-layout">
+
+        <section class="recipe-sidebar">
+            <h2>Available Recipes</h2>
+            <div id="recipeList"></div>
+        </section>
+
+        <section class="recipe-display">
+            <h2>Selected Recipe</h2>
+            <div id="recipeContainer"></div>
+        </section>
+
+        <section class="recipe-form-section">
+            <h2>Add New Recipe</h2>
+
+            <form id="recipeForm">
+                <input type="text" id="recipeName" placeholder="Recipe name">
+                <input type="number" id="recipeServings" placeholder="Servings">
+                <input type="number" id="recipePrep" placeholder="Prep time">
+                <input type="number" id="recipeCook" placeholder="Cook time">
+                <select id="recipeDifficulty">
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Hard">Hard</option>
+                </select>
+
+                <label for="recipeImage">Select Recipe Image:</label>
+
+                <select id="recipeImage">
+                    <option value="images/arroz-gandules.jpg">Arroz con Gandules</option>
+                    <option value="images/mofongo.jpg">Mofongo</option>
+                    <option value="images/pastelon.jpg">Pastelón</option>
+                </select>
+
+                <h3>Ingredients</h3>
+                <div id="ingredientInputs">
+                    <input type="number" class="ingredientQty" placeholder="Qty" step="0.01">
+                    <input type="text" class="ingredientUnit" placeholder="Unit">
+                    <input type="text" class="ingredientName" placeholder="Ingredient">
+                </div>
+
+                <button type="button" id="addIngredientBtn">Add Ingredient</button>
+
+                <h3>Instructions</h3>
+                <div id="instructionInputs">
+                    <input type="text" class="instructionStep" placeholder="Instruction step">
+                </div>
+
+                <button type="button" id="addInstructionBtn">Add Instruction</button>
+
+                <button type="submit">Save Recipe</button>
+            </form>
+
+            <p id="errorMessage"></p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Recipe Manager &copy; 2026 | JavaScript Final Project</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
