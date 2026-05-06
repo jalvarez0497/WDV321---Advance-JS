@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>WDV321 Advanced Javascript - JSON</title>
+<script src="objectScript.js"></script>
+  <!--
+      Instructions:
+        1. Incorporate the script.js file into this page as an external javascript file.
+        2. Add the necessary Javascript code to it to:
+          a. Access the JSON object in local storage and convert it into a Javascript object.
+          b. Use the information in the object to complete the student card.
+  -->
+  <style>
+    .studentCard	{
+      width:200px;
+      box-sizing:border-box;
+      background-color:lightblue;
+      padding-left:5px;
+      padding-top:3px;
+      border:thin solid blue;
+      box-shadow: 2px 2px 2px grey;
+    }
+
+    .studentCard h3	{
+      margin:0px;
+    }
+  </style>
+</head>
+
+<body>
+	<h1>WDV321 Advanced Javascript</h1>
+  <h2>Unit-8 JSON Objects</h2>
+  <h3>Creating and consuming a JSON object</h3>
+
+  <div class="studentCard">
+	  <h3 id="studentID">Student ID:</h3>
+    <p id="studentGPA">Student GPA:</p>
+    Student Courses:
+    <ul id="courseList">
+      <!-- display the courses as list items -->
+    </ul>
+  </div>
+
+  <script>
+    let storedStudentJSON = localStorage.getItem("studentData");
+    let studentObject = JSON.parse(storedStudentJSON);
+
+    document.getElementById("studentID").innerHTML =
+        "Student ID: " + studentObject.studentID;
+
+    document.getElementById("studentGPA").innerHTML =
+        "Student GPA: " + studentObject.studentGPA;
+
+    let courseOutput = "";
+    for (let i = 0; i < studentObject.studentCourses.length; i++) {
+        courseOutput += "<li>" + studentObject.studentCourses[i] + "</li>";
+    }
+
+    document.getElementById("courseList").innerHTML = courseOutput;
+</script>
+</body>
+</html>

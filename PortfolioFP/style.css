@@ -1,0 +1,24 @@
+body {
+    font-family: Arial;
+    text-align: center;
+    background-color: #e6d4a9;
+}
+
+#recipeContainer {
+    width: 60%;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+h2 {
+    color: darkred;
+}
+
+ul,
+ol {
+    list-style-type: none;
+    text-align: center;
+}
+

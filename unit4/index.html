@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WDV321 Advanced JavaScript</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            background-color:burlywood;
+        }
+        #container {
+            width:70%;
+            margin-left:auto;
+            margin-right:auto;
+            padding-left:15px;
+            padding-right:15px;
+            background-color: chocolate;
+        }
+
+        header {
+            text-align: center;
+        }
+
+        nav {
+            display:flex;
+            justify-content: space-between;
+            margin-bottom:15px;
+        }
+
+        main {
+            display:flex;
+        }
+
+        main section {
+            width:50%;
+            border:thin solid black;
+
+        }
+
+        section h2, section h3 {
+            text-align: center;
+        }
+
+        form {
+            width: 70%;
+            margin-left:auto;
+            margin-right:auto;
+        }
+
+
+        footer p {
+            text-align: center;
+        }
+    </style>
+    <script>
+    let membersInfo = {
+        memberUserNames: [
+            "A1D2C4",
+            "B2D4C6",
+            "B3C2D1"
+        ]
+    };
+
+    let eventRegistration = {
+        guests: []
+    };
+
+    function setCookie(cookieName, cookieValue, days) {
+        let expiresValue = "";
+
+        if (days) {
+            let today = new Date();
+            today.setTime(today.getTime() + (days * 24 * 60 * 60 * 1000));
+            expiresValue = "; expires=" + today.toUTCString();
+        }
+
+        document.cookie = cookieName + "=" + cookieValue + expiresValue + "; path=/";
+    }
+
+    function getCookie(cookieName) {
+        let nameEquals = cookieName + "=";
+        let cookieArray = document.cookie.split(";");
+
+        for (let i = 0; i < cookieArray.length; i++) {
+            let currentCookie = cookieArray[i].trim();
+
+            if (currentCookie.indexOf(nameEquals) === 0) {
+                return currentCookie.substring(nameEquals.length);
+            }
+        }
+
+        return "";
+    }
+
+    function updateHitCounter() {
+        let pageHits = getCookie("pageHits");
+
+        if (pageHits === "") {
+            pageHits = 1;
+        } else {
+            pageHits = parseInt(pageHits) + 1;
+        }
+
+        setCookie("pageHits", pageHits, 7);
+        document.getElementById("activityCount").innerHTML = pageHits;
+    }
+
+    function loadStoredRegistrations() {
+        let storedRegistrations = localStorage.getItem("eventRegistration");
+
+        if (storedRegistrations !== null) {
+            eventRegistration = JSON.parse(storedRegistrations);
+        }
+    }
+
+    function validateForm(nameValue, emailValue, phoneValue) {
+        let errorMessage = "";
+        let emailPattern = /\S+@\S+\.\S+/;
+
+        if (nameValue === "") {
+            errorMessage += "Name is required.<br>";
+        }
+
+        if (emailValue === "") {
+            errorMessage += "Email is required.<br>";
+        } else if (!emailPattern.test(emailValue)) {
+            errorMessage += "Enter a valid email.<br>";
+        }
+
+        if (phoneValue === "") {
+            errorMessage += "Phone is required.<br>";
+        }
+
+        return errorMessage;
+    }
+
+    function saveRegistration(event) {
+        event.preventDefault();
+
+        let nameInput = document.getElementById("guestName").value.trim();
+        let emailInput = document.getElementById("guestEmail").value.trim();
+        let phoneInput = document.getElementById("guestPhone").value.trim();
+        let messageArea = document.getElementById("messageArea");
+
+        let validationMessage = validateForm(nameInput, emailInput, phoneInput);
+
+        if (validationMessage !== "") {
+            messageArea.innerHTML = validationMessage;
+            return;
+        }
+
+        let today = new Date();
+        let currentDate = (today.getMonth() + 1) + "/" + today.getDate() + "/" + today.getFullYear();
+
+        let guestInfo = {
+            name: nameInput,
+            email: emailInput,
+            phone: phoneInput,
+            registrationDate: currentDate
+        };
+
+        eventRegistration.guests.push(guestInfo);
+        localStorage.setItem("eventRegistration", JSON.stringify(eventRegistration));
+
+        messageArea.innerHTML = "Registration saved successfully.";
+        document.getElementById("registrationForm").reset();
+    }
+
+    function showLoginForm() {
+        let loginArea = document.getElementById("loginArea");
+
+        if (loginArea.style.display === "none" || loginArea.style.display === "") {
+            loginArea.style.display = "block";
+        } else {
+            loginArea.style.display = "none";
+        }
+    }
+
+    function processLogin() {
+        let userNameInput = document.getElementById("loginUserName").value.trim();
+        let passwordInput = document.getElementById("loginPassword").value.trim();
+        let loginMessage = document.getElementById("loginMessage");
+
+        if (userNameInput === "" || passwordInput === "") {
+            loginMessage.innerHTML = "Please enter username and password.";
+            return;
+        }
+
+        if (membersInfo.memberUserNames.includes(userNameInput)) {
+            setCookie("authorizedUser", userNameInput, 1);
+            loginMessage.innerHTML = "Sign in successful.";
+            window.location.href = "members.html";
+        } else {
+            loginMessage.innerHTML = "Invalid username.";
+        }
+    }
+
+    window.onload = function () {
+        document.getElementById("registrationForm").addEventListener("submit", saveRegistration);
+        document.getElementById("signInBtn").addEventListener("click", showLoginForm);
+        document.getElementById("loginBtn").addEventListener("click", processLogin);
+
+        loadStoredRegistrations();
+        updateHitCounter();
+    };
+</script>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h1>Science Fiction Book Club</h1>
+            <h2>"Predicting the future using or describing the future?"</h2>
+        </header>
+
+        <nav>
+            <div>
+                <a href="index.html"><button>Home Page</button></a>
+                <a href="members.html"><button>Members Page</button></a>
+            </div>
+            <button type="button" id="signInBtn">Sign In</button>
+        </nav>
+
+        <div id="loginArea" style="display:none; width:70%; margin:15px auto; padding:10px; border:1px solid black; background-color:burlywood;">
+            <h4 style="text-align:center;">Member Sign In</h4>
+
+            <p>
+                <label for="loginUserName">Username:</label>
+                <input type="text" id="loginUserName">
+            </p>
+
+            <p>
+                <label for="loginPassword">Password:</label>
+                <input type="password" id="loginPassword">
+            </p>
+
+            <p style="text-align:center;">
+                <button type="button" id="loginBtn">Submit Login</button>
+            </p>
+
+            <p id="loginMessage" style="text-align:center; font-weight:bold;"></p>
+        </div>
+
+        <main>
+            <section class="leftColumn">
+                <h3>Sign Up for our next Public Event</h3>
+                <form method="post" action="#" id="registrationForm">
+                    <fieldset>
+                        <p>Event Registration Form</p>
+                        <h4>Form Instructions:</h4>
+                        <ol>
+                            <li>Create fields for Name, Email, Phone</li>
+                            <li>Include validation</li>
+                            <li>When the form is submitted capture the form data and add it to the eventRegistration object.</li>
+                            <li>Store the eventRegistration object in local storage</li>
+                        </ol>
+
+                        <p>
+                            <label for="guestName">Name:</label>
+                            <input type="text" id="guestName">
+                        </p>
+
+                        <p>
+                            <label for="guestEmail">Email:</label>
+                            <input type="text" id="guestEmail">
+                        </p>
+
+                        <p>
+                            <label for="guestPhone">Phone:</label>
+                            <input type="text" id="guestPhone">
+                        </p>
+
+                        <p style="text-align:center;">
+                            <button type="submit">Register</button>
+                        </p>
+
+                        <p id="messageArea" style="text-align:center; font-weight:bold;"></p>
+
+                    </fieldset>
+                </form>
+            </section>
+            <section class="rightColumn">
+                <h3>Upcoming Events</h3>
+                <div>
+                    <h3>"Did Star Trek predict AI?"</h3>
+                </div>
+
+                <div>
+                    <h3>Current Registrations</h3>
+                    <div id="registrationOutput"></div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Copyright &copy;YYYY All rights reserved.</p>
+            <p>Current Activity: <span id="activityCount">0</span></p>
+        </footer>
+
+    </div>
+</body>
+</html>

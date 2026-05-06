@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Builder Demo</title>
+    <!-- <script src="script2-1.js"></script> -->
+    <script>
+      let crustTypes = ["Thin Crust", "Thick Crust", "Stuffed Crust", "Gluten Free"];
+      let toppings = ["Pepperoni", "Sausage", "Mushrooms", "Onions"];
+
+      document.addEventListener("DOMContentLoaded", () => {
+        //add toppings array to toppings dropdown
+        const toppingSelect = document.getElementById('toppingSelect');
+        toppings.forEach((topping) => {
+          const option = document.createElement("option");
+          option.value = topping;
+          option.textContent = topping;
+          toppingSelect.add(option);
+        })
+      });
+
+      document.getElementById("addToppingBtn").addEventListener("click", function() {
+        let newToppingInout = document.getElementById("newTopping");
+        let newTopping = newToppingInout.value.trim();
+        toppings.push(newTopping);
+
+        if(newTopping === "") {
+          alert("Please enter a valid topping.");
+          return;
+        }
+
+        let option = document.createElement("option");
+        option.value = 
+      })
+      
+    </script>
+</head>
+<body>
+    <h1>Pizza Builder Demo</h1>
+
+    <h2>Step 1: Dropdown Created with document.write()</h2>
+    <label for="">Crust Type</label>
+    <select id="crustSelect">
+      <!-- populate using document.write() -->
+      <script>
+        for (let i = 0; i < crustTypes.length; i++) {
+          document.write("<option value='" + crustTypes[i] + "'>" + crustTypes[i] + "</option>");
+        }
+      </script>
+    </select>
+
+    <h2>Step 2: Dropdown Created with createElement() and appendChild()</h2>
+    <label for="">Pizza Topings</label>
+    <select id="toppingSelect">
+      <!-- populate using createElement and appendChild - can also us .add() since that works well for SELECT elements -->
+    </select>
+
+    <h2>Step 3: Add a New Topping</h2>
+    <!-- Add event listener on button to dynamically add an option to the pizza topping dropdown -->
+    <input type="text" id="newTopping" placeholder="Enter new topping">
+    <button id="addToppingBtn">Add Topping</button>
+
+    <h2>Step 4: Switch Between Pizza Styles</h2>
+    <!--
+        Add event listener on the 'loadVeggieBtn' button to reload the veggies toppings
+        Add event listener on the 'loadMeatBtn' button to reload the meat toppings
+    -->
+    <button id="loadVeggieBtn" onclick='loadToppings(["Spinach", "Olives", "Green Peppers", "Tomatoes"]);'>Load Veggie Toppings</button>
+    <button id="loadMeatBtn">Load Meat Toppings</button>
+</body>
+</html>

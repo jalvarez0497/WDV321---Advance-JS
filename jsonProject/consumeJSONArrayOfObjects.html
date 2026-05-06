@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>WDV321 Advanced Javascript - JSON</title>
+<script src="arrayScript.js"></script>
+<!--
+    Instructions:
+    	1. Incorporate the script.js file into this page as an external javascript file.
+
+      -- for the instructions below, the javascript should be added to the external script.js file --
+      2. Access the JSON data in local storage and convert it into a javascript array of objects.
+      3. Use the information in the array to complete a student card for EACH student object.
+      4. Account for the fact that there could be a random number of student objects in the array.
+      5. Add a form to allow adding a new student object to the array
+        a. Adding a new student will update local storage
+        b. Make sure the newly added student is displayed on the page.
+      6. Do not use jQuery, use plain Javascript
+-->
+  <style>
+    .studentCard	{
+      width:200px;
+      box-sizing:border-box;
+      background-color:lightblue;
+      padding-left:5px;
+      padding-top:3px;
+      border:thin solid blue;
+      box-shadow: 2px 2px 2px grey;
+    }
+
+    .studentCard h3	{
+      margin:0px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>WDV321 Advanced Javascript</h1>
+  <h2>Unit-8 JSON Objects</h2>
+  <h3>Creating and consuming a JSON object</h3>
+
+  <form id="studentForm">
+    <label for="studentID">Student ID:</label>
+    <input type="text" id="studentID" name="studentID"><br><br>
+
+    <label for="studentGPA">Student GPA:</label>
+    <input type="text" id="studentGPA" name="studentGPA"><br><br>
+    
+    <label for="studentCourses">Student Courses (Separate each course with a comma):</label>
+    <input type="text" id="studentCourses" name="studentCourses"><br><br>
+    
+    <input type="submit" value="Add Student">
+  </form>
+
+  <div id="studentContainer"></div>
+
+  <script>
+    let storedStudentArrayJSON = localStorage.getItem("studentArrayData");
+    let studentArrayObjects = JSON.parse(storedStudentArrayJSON);
+
+    function displayStudents() {
+        let container = document.getElementById("studentContainer");
+        container.innerHTML = "";
+
+        for (let i = 0; i < studentArrayObjects.length; i++) {
+            let courseList = "";
+
+            for (let j = 0; j < studentArrayObjects[i].studentCourses.length; j++) {
+                courseList += "<li>" + studentArrayObjects[i].studentCourses[j] + "</li>";
+            }
+
+            container.innerHTML += `
+            <div class="studentCard">
+                <h3>Student ID: ${studentArrayObjects[i].studentID}</h3>
+                <p>Student GPA: ${studentArrayObjects[i].studentGPA}</p>
+                Student Courses:
+                <ul>${courseList}</ul>
+            </div>
+            `;
+        }
+    }
+
+    displayStudents();
+
+    document.getElementById("studentForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        let newStudentID = document.getElementById("studentID").value;
+        let newStudentGPA = document.getElementById("studentGPA").value;
+        let newStudentCourses = document.getElementById("studentCourses").value.split(",");
+
+        for (let i = 0; i < newStudentCourses.length; i++) {
+            newStudentCourses[i] = newStudentCourses[i].trim();
+        }
+
+        let newStudentObject = {
+            studentID: newStudentID,
+            studentGPA: newStudentGPA,
+            studentCourses: newStudentCourses
+        };
+
+        studentArrayObjects.push(newStudentObject);
+        localStorage.setItem("studentArrayData", JSON.stringify(studentArrayObjects));
+        displayStudents();
+
+        document.getElementById("studentForm").reset();
+    });
+  </script>
+
+  <script>
+
+  </script>
+</body>
+</html>
